@@ -1,0 +1,20 @@
+{
+  "name": "us-geography",
+  "version": "1.0.0",
+  "description": "Offline US geography puzzle with a native macOS WebKit shell",
+  "scripts": {
+    "test": "node --test tests/engine.test.cjs",
+    "test:ui": "playwright test",
+    "dev": "node scripts/serve.cjs",
+    "build:macos": "bash build-macos.sh",
+    "start": "bash launch-macos.command"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "1.55.1"
+  },
+  "private": true
+}

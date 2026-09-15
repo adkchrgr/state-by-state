@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' file:; script-src 'self' file:; style-src 'self' file: 'unsafe-inline'; img-src 'self' file: data:; connect-src 'none'; object-src 'none'"
+    />
+    <title>State by State</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <span class="mark" aria-hidden="true">◈</span>
+        <div>
+          <h1>State by State</h1>
+          <p>A little geography. A bigger picture.</p>
+        </div>
+      </div>
+      <button id="settingsButton">
+        Settings <span aria-hidden="true">⚙</span>
+      </button>
+    </header>
+    <nav aria-label="Puzzle controls">
+      <label>EXPLORE<select id="mode"></select></label
+      ><label
+        >PLAY STYLE<select id="style">
+          <option value="learning">Learning</option>
+          <option value="challenge">Challenge</option>
+        </select></label
+      >
+      <div class="toggles">
+        <label class="check"
+          ><input id="labels" type="checkbox" />Show State Names</label
+        ><button id="sound" aria-pressed="false">Sound off</button>
+      </div>
+    </nav>
+    <main>
+      <section class="board-panel" aria-label="Puzzle board">
+        <div class="board-heading">
+          <div>
+            <p class="eyebrow">PUT THE PIECES TOGETHER</p>
+            <h2 id="boardTitle">The United States</h2>
+          </div>
+          <span class="badge" id="modeBadge">50 states · your pace</span>
+        </div>
+        <p id="instructions">Drag a piece onto its outline. Close counts.</p>
+        <div class="map-wrap">
+          <svg
+            id="map"
+            viewBox="-80 -15 1110 660"
+            role="img"
+            aria-label="United States outline puzzle with Alaska and Hawaii insets"
+          >
+            <g id="targets"></g>
+            <g id="mapLabels"></g>
+            <g id="dragLayer" pointer-events="none"></g>
+          </svg>
+        </div>
+        <div class="map-caption">
+          <span>ALASKA & HAWAII SHOWN AS INSETS</span><span id="history"></span>
+        </div>
+        <div class="progress-row">
+          <strong id="progressText">0 / 50 states placed</strong
+          ><span id="stats">No timer. Take your time.</span>
+        </div>
+        <progress
+          id="progress"
+          value="0"
+          max="50"
+          aria-label="States placed"
+        ></progress>
+        <footer>
+          <button id="hint" class="primary">Hint <kbd>H</kbd></button
+          ><span id="selectedText">Choose any piece to begin</span
+          ><button id="reset">Reset Puzzle</button
+          ><button id="shuffle">New Puzzle</button>
+        </footer>
+      </section>
+      <aside>
+        <div class="tray-heading">
+          <div>
+            <p class="eyebrow">YOUR NEXT DISCOVERY</p>
+            <h2>Available States</h2>
+          </div>
+          <span id="remaining" class="count">50</span>
+        </div>
+        <p class="tray-help">Drag a shape, or select it and use arrow keys.</p>
+        <div id="tray" class="tray" aria-label="Available puzzle pieces"></div>
+      </aside>
+    </main>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <dialog id="settingsDialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <h2>Make it yours</h2>
+          <button aria-label="Close settings">✕</button>
+        </div>
+        <p>Comfortable practice, at your pace.</p>
+        <label class="setting"
+          ><span>Short learning facts</span
+          ><input id="facts" type="checkbox" /></label
+        ><label class="setting"
+          ><span>Required shape overlap</span
+          ><select id="threshold">
+            <option value="0.2">20% · extra forgiving</option>
+            <option value="0.3">30% · recommended</option>
+            <option value="0.5">50% · precise</option>
+            <option value="0.7">70% · very precise</option>
+          </select></label
+        >
+        <p class="help">
+          A piece snaps only when released. Small pieces have large pick-up
+          areas.
+        </p>
+        <h3>Keyboard play</h3>
+        <p class="help">
+          Tab to a piece. Enter or Space picks it up. Arrow keys move it; hold
+          Shift for smaller steps. Enter drops it. Escape cancels. H gives a
+          learning hint. R opens reset confirmation.
+        </p>
+        <p class="help">
+          Shapes use modern state boundaries. Maryland and Delaware move
+          together in the colonies puzzle, but count as two colonies. Regions
+          are practice groupings.
+        </p>
+        <button class="primary">Done</button>
+      </form>
+    </dialog>
+    <dialog id="confirmDialog">
+      <h2>Start fresh?</h2>
+      <p>Your placed pieces will return to the tray.</p>
+      <div class="dialog-actions">
+        <button id="cancelReset">Keep playing</button
+        ><button id="confirmReset" class="primary">Start fresh</button>
+      </div>
+    </dialog>
+    <dialog id="completeDialog">
+      <div class="complete-symbol">✓</div>
+      <p class="eyebrow">EVERY PIECE BELONGS</p>
+      <h2 id="completeTitle">United States Complete</h2>
+      <p id="completeDetail"></p>
+      <div class="dialog-actions">
+        <button id="again" class="primary">Play Again</button
+        ><button id="changeMode">Change Mode</button>
+      </div>
+    </dialog>
+    <script src="vendor/polygon-clipping.js"></script>
+    <script src="data/states.js"></script>
+    <script src="geometry.js"></script>
+    <script src="modes.js"></script>
+    <script src="engine.js"></script>
+    <script src="settings.js"></script>
+    <script src="ui.js"></script>
+    <script src="drag.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
